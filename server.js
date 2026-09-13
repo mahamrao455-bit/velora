@@ -4,9 +4,11 @@ const fs = require("fs");
 const path = require("path");
 
 const app = express();
-const PORT = 5000;
+
+const PORT = process.env.PORT || 5000;
 
 const productsPath = path.join(__dirname, "products.json");
+const frontendBuildPath = path.join(__dirname, "..", "build");
 
 app.use(cors());
 app.use(express.json());
@@ -29,12 +31,9 @@ function saveProducts(products) {
   );
 }
 
-app.get("/", (req, res) => {
-  res.json({
-    success: true,
-    message: "Velora API is running ✦"
-  });
-});
+/* =========================
+   API ROUTES
+========================= */
 
 app.get("/api/health", (req, res) => {
   res.json({
@@ -95,6 +94,35 @@ app.post("/api/products", (req, res) => {
   });
 });
 
+/* =========================
+   REACT FRONTEND
+========================= */
+
+if (fs.existsSync(frontendBuildPath)) {
+  app.use(express.static(frontendBuildPath));
+
+  app.get("*", (req, res, next) => {
+    if (req.path.startsWith("/api/")) {
+      return next();
+    }
+
+    res.sendFile(
+      path.join(frontendBuildPath, "index.html")
+    );
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.json({
+      success: true,
+      message: "Velora API is running ✦"
+    });
+  });
+}
+
+/* =========================
+   404
+========================= */
+
 app.use((req, res) => {
   res.status(404).json({
     success: false,
@@ -104,7 +132,7 @@ app.use((req, res) => {
 
 app.listen(PORT, () => {
   console.log("");
-  console.log("✦ Velora API running on http://localhost:5000");
-  console.log("✦ Products API: http://localhost:5000/api/products");
+  console.log(`✦ Velora running on port ${PORT}`);
+  console.log(`✦ Products API: /api/products`);
   console.log("");
 });
