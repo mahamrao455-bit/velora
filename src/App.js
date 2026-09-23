@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "./App.css";
 
-const API_URL = "http://localhost:5000/api/products";
+const API_URL = "https://velora-gyrev.faable.link/api/products";
 
 const categories = [
   { name: "All", count: "24+" },
