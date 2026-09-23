@@ -2,6 +2,7 @@
   "name": "velora",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://mahamrao455-bit.github.io/velora/",
   "description": "Velora fashion ecommerce full-stack project",
   "main": "server.js",
   "scripts": {
