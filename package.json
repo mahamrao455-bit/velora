@@ -1,13 +1,18 @@
 {
-  "name": "velora-backend",
+  "name": "velora",
   "version": "1.0.0",
-  "description": "Velora fashion ecommerce backend",
+  "private": true,
+  "description": "Velora fashion ecommerce full-stack project",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "react-scripts build"
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.18.3"
+    "express": "^4.18.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "^5.0.1"
   }
 }
